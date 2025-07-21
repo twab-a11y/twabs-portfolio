@@ -22,9 +22,6 @@ const Index = () => {
           <Skills />
         </div>
         
-        <div id="projects">
-          <Projects />
-        </div>
         
         <div id="contact">
           <Contact />

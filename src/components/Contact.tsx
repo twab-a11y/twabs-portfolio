@@ -9,7 +9,7 @@ const Contact = () => {
       title: "Email",
       description: "Get in touch for opportunities or just to chat about coding!",
       action: "Send Email",
-      link: "mailto:your-email@example.com"
+      link: "mailto:twabgaming31@gmail.com"
     },
     {
       icon: <Github className="w-6 h-6 text-foreground" />,

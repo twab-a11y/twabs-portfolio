@@ -18,7 +18,6 @@ const Navigation = () => {
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" }
   ];
 
@@ -47,7 +46,7 @@ const Navigation = () => {
               </div>
             </div>
             <span className="font-bold text-lg text-foreground">
-              Dutch<span className="text-primary">Gamer</span>
+              twab<span className="text-primary">.dev</span>
             </span>
           </div>
 
