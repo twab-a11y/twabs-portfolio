@@ -33,9 +33,8 @@ const Hero = () => {
               </h2>
               
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Hi, I'm twab. A developer from Netherlands, focused on creating efficient 
-                and robust software solutions. While I'm not a frontend expert, I enjoy building the 
-                logic and architecture that make applications work.
+                Hi, I'm twab. A developer from Netherlands who enjoys scripting and gaming. 
+                I'm still learning but I love working on projects and figuring out how things work.
               </p>
               
               <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">

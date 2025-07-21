@@ -9,27 +9,27 @@ const Skills = () => {
       icon: <Code className="w-6 h-6 text-primary" />,
       title: "Programming Languages",
       skills: [
-        { name: "JavaScript", level: 25, learning: true },
-        { name: "Python", level: 15, learning: true },
-        { name: "HTML/CSS", level: 40, learning: false },
+        { name: "JavaScript", level: 15, learning: true },
+        { name: "Python", level: 10, learning: true },
+        { name: "HTML/CSS", level: 25, learning: false },
       ]
     },
     {
       icon: <Wrench className="w-6 h-6 text-secondary" />,
       title: "Tools & Technologies",
       skills: [
-        { name: "Git/GitHub", level: 20, learning: true },
-        { name: "VS Code", level: 50, learning: false },
-        { name: "React", level: 10, learning: true },
+        { name: "Git/GitHub", level: 12, learning: true },
+        { name: "VS Code", level: 35, learning: false },
+        { name: "React", level: 8, learning: true },
       ]
     },
     {
       icon: <Gamepad2 className="w-6 h-6 text-accent" />,
       title: "Gaming & Design",
       skills: [
-        { name: "Game Logic", level: 70, learning: false },
-        { name: "UI/UX Thinking", level: 45, learning: true },
-        { name: "Problem Solving", level: 80, learning: false },
+        { name: "Game Logic", level: 45, learning: false },
+        { name: "UI/UX Thinking", level: 20, learning: true },
+        { name: "Problem Solving", level: 55, learning: false },
       ]
     }
   ];

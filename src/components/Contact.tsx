@@ -12,13 +12,6 @@ const Contact = () => {
       link: "mailto:twabgaming31@gmail.com"
     },
     {
-      icon: <Github className="w-6 h-6 text-foreground" />,
-      title: "GitHub",
-      description: "Check out my code, learning progress, and contributions.",
-      action: "View Profile",
-      link: "https://github.com/yourusername"
-    },
-    {
       icon: <MessageCircle className="w-6 h-6 text-secondary" />,
       title: "Discord",
       description: "Let's connect in the gaming and coding communities!",
@@ -40,7 +33,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {contactMethods.map((method, index) => (
             <Card 
               key={index} 
