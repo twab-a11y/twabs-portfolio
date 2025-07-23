@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollAnimations();
     setupCardHoverEffects();
     setupEmailLinks();
+    setupResumeEasterEgg();
     
     // Add scroll event listeners
     window.addEventListener('scroll', () => {
@@ -256,29 +257,101 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Add some Easter eggs
-document.addEventListener('keydown', (e) => {
-    // Konami code easter egg (up, up, down, down, left, right, left, right, b, a)
-    const konamiCode = [
-        'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-        'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-        'KeyB', 'KeyA'
-    ];
+// Resume button easter egg (15 clicks)
+function setupResumeEasterEgg() {
+    const resumeButtons = document.querySelectorAll('.btn:has(svg)');
+    let clickCount = 0;
     
-    if (!window.konamiSequence) window.konamiSequence = [];
+    resumeButtons.forEach(button => {
+        if (button.textContent.trim().includes('Resume')) {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                clickCount++;
+                
+                if (clickCount === 15) {
+                    showSoggyCatModal();
+                    clickCount = 0; // Reset counter
+                }
+            });
+        }
+    });
+}
+
+function showSoggyCatModal() {
+    // Create modal backdrop
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease-out;
+    `;
     
-    window.konamiSequence.push(e.code);
+    // Create modal content
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        animation: scaleIn 0.3s ease-out;
+    `;
     
-    if (window.konamiSequence.length > konamiCode.length) {
-        window.konamiSequence = window.konamiSequence.slice(-konamiCode.length);
+    modalContent.innerHTML = `
+        <h1 style="color: #3b82f6; font-size: 3rem; margin: 0 0 1rem 0; font-weight: bold;">CONGRATS!</h1>
+        <img src="public/soggy-cat.png" alt="Soggy Cat" style="max-width: 100%; height: auto; border-radius: 10px; margin: 1rem 0;">
+        <h2 style="color: #1f2937; font-size: 1.5rem; margin: 1rem 0 0 0;">YOU FOUND SOGGY CAT!</h2>
+        <button id="closeModal" style="
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        ">Close</button>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // Close modal functionality
+    const closeBtn = modal.querySelector('#closeModal');
+    const closeModal = () => {
+        modal.style.animation = 'fadeOut 0.3s ease-out';
+        setTimeout(() => modal.remove(), 300);
+    };
+    
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    // Add close animation keyframes if not already present
+    if (!document.querySelector('#soggy-animations')) {
+        const style = document.createElement('style');
+        style.id = 'soggy-animations';
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     }
-    
-    if (JSON.stringify(window.konamiSequence) === JSON.stringify(konamiCode)) {
-        console.log('🎮 Konami Code activated! You found the secret!');
-        document.body.style.animation = 'pulse 1s ease-in-out 3';
-        window.konamiSequence = [];
-    }
-});
+}
 
 // Console message for developers
 console.log('%c🎮 Hello fellow developer!', 'color: #3b82f6; font-size: 16px; font-weight: bold;');

@@ -60,6 +60,9 @@
     overflow: hidden;
     white-space: nowrap;
     animation: slideDown 0.5s ease-out;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 1.2;
 }
 
 .typing-text::after {
@@ -137,6 +140,12 @@
 .btn {
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
 .btn::before {
@@ -152,6 +161,42 @@
 
 .btn:hover::before {
     left: 100%;
+}
+
+/* Cool hover animations for cards */
+.skill-card, .contact-card, .info-card {
+    transition: all 0.3s ease;
+}
+
+.skill-card:hover, .contact-card:hover, .info-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+/* Floating animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.profile-image {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text animation */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+    background: linear-gradient(-45deg, var(--primary), var(--accent), var(--primary-variant), var(--primary));
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Interest tag animations */
