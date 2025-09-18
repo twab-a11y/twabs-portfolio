@@ -17,10 +17,14 @@ const VideoBackground = ({ videoSrc, children }: VideoBackgroundProps) => {
           >
             <source src={videoSrc} type="video/mp4" />
           </video>
-          <div className="absolute top-0 left-0 w-full h-full bg-background/80 z-10" />
+      <div className="absolute top-0 left-0 w-full h-full 
+                     bg-gradient-to-br from-purple-900/90 via-black/80 to-pink-900/90 z-10
+                     animate-pulse" />
         </>
       ) : (
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-background via-background/95 to-primary/20 z-0" />
+        <div className="absolute top-0 left-0 w-full h-full 
+                     bg-gradient-to-br from-purple-600/40 via-pink-500/30 to-purple-800/40 z-0 
+                     animate-pulse" />
       )}
       <div className="relative z-20">
         {children}

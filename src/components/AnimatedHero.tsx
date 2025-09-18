@@ -53,10 +53,11 @@ const AnimatedHero = () => {
           />
         </div>
 
-        {/* Main Title */}
-        <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-primary via-accent to-secondary 
-                       bg-clip-text text-transparent animate-fade-in">
-          Twab
+        {/* GIANT VISIBLE TITLE */}
+        <h1 className="text-9xl md:text-[12rem] font-black mb-12 text-center
+                       bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 
+                       bg-clip-text text-transparent animate-pulse">
+          🔥 TWAB 🔥
         </h1>
 
         {/* Subtitle with Typing Animation */}

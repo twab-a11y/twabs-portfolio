@@ -8,23 +8,23 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Modern purple theme */
-    --background: 280 30% 8%;
-    --foreground: 270 40% 98%;
+    /* DRAMATIC PURPLE THEME */
+    --background: 140 20% 5%;
+    --foreground: 300 100% 95%;
 
-    --card: 280 25% 10%;
-    --card-foreground: 270 40% 98%;
+    --card: 260 30% 12%;
+    --card-foreground: 300 100% 95%;
 
-    --popover: 280 25% 10%;
-    --popover-foreground: 270 40% 98%;
+    --popover: 260 30% 12%;
+    --popover-foreground: 300 100% 95%;
 
-    /* Bright purple as primary */
-    --primary: 280 100% 70%;
-    --primary-foreground: 280 30% 8%;
+    /* BRIGHT MAGENTA PRIMARY */
+    --primary: 300 100% 70%;
+    --primary-foreground: 0 0% 0%;
 
-    /* Light purple as secondary */
-    --secondary: 270 100% 80%;
-    --secondary-foreground: 280 30% 8%;
+    /* ELECTRIC PURPLE SECONDARY */
+    --secondary: 280 100% 60%;
+    --secondary-foreground: 0 0% 0%;
 
     --muted: 280 20% 15%;
     --muted-foreground: 280 10% 70%;
