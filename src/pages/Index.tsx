@@ -1,35 +1,23 @@
-import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Contact from "@/components/Contact";
+import VideoBackground from "@/components/VideoBackground";
+import EnhancedNavigation from "@/components/EnhancedNavigation";
+import AnimatedHero from "@/components/AnimatedHero";
+import AnimatedAbout from "@/components/AnimatedAbout";
+import AnimatedSkills from "@/components/AnimatedSkills";
+import AnimatedContact from "@/components/AnimatedContact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
-      <main>
-        <Hero />
-        
-        <div id="about">
-          <About />
-        </div>
-        
-        <div id="skills">
-          <Skills />
-        </div>
-        
-        
-        <div id="contact">
-          <Contact />
-        </div>
+    <VideoBackground>
+      <EnhancedNavigation />
+      <main className="space-y-0">
+        <AnimatedHero />
+        <AnimatedAbout />
+        <AnimatedSkills />
+        <AnimatedContact />
       </main>
-      
       <Footer />
-    </div>
+    </VideoBackground>
   );
 };
 
