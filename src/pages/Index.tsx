@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <VideoBackground>
+    <VideoBackground videoSrc="/background-video.mp4">
       <EnhancedNavigation />
       <main className="space-y-0">
         <AnimatedHero />
