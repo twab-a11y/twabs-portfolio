@@ -1,8 +1,7 @@
+import Portfolio from "@/components/Portfolio";
+
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-background">
-    </div>
-  );
+  return <Portfolio />;
 };
 
 export default Index;
