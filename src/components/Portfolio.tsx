@@ -1,7 +1,9 @@
-import { Github, Linkedin, Mail, Code, Palette, Zap } from "lucide-react";
+import { Github, Mail, Code, Palette, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
+import Silk from "./SilkBackground";
+import catAvatar from "@/assets/cat-avatar.jpeg";
 
 const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,11 +39,6 @@ const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; d
 };
 
 const Portfolio = () => {
-  const projects = [
-    { title: "Project Alpha", description: "A cool web application", tech: "React, TypeScript" },
-    { title: "Project Beta", description: "Mobile-first design", tech: "Next.js, Tailwind" },
-    { title: "Project Gamma", description: "E-commerce platform", tech: "React, Node.js" },
-  ];
 
   const skills = [
     { icon: Code, name: "Development", level: "Advanced" },
@@ -53,19 +50,24 @@ const Portfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-red-950/20 to-background">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.1),transparent_50%)]" />
+        <div className="absolute inset-0">
+          <Silk speed={5} scale={1} color="#ef4444" noiseIntensity={1.5} rotation={0} />
+        </div>
         
         <AnimatedSection>
           <div className="text-center z-10 relative">
             <div className="mb-8 inline-block">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-red-500 to-red-700 
-                            shadow-2xl shadow-red-500/50 animate-pulse" />
+              <img 
+                src={catAvatar} 
+                alt="Cat avatar" 
+                className="w-32 h-32 rounded-full shadow-2xl shadow-red-500/50 object-cover"
+              />
             </div>
             
             <h1 className="text-7xl md:text-9xl font-black mb-6 
                          bg-gradient-to-r from-red-400 via-red-500 to-red-600 
                          bg-clip-text text-transparent">
-              PORTFOLIO
+              TWAB
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -82,13 +84,10 @@ const Portfolio = () => {
             </div>
 
             <div className="flex gap-6 justify-center mt-8">
-              <a href="#" className="text-muted-foreground hover:text-red-500 transition-all hover:scale-110">
+              <a href="https://github.com/twab-a11y" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-red-500 transition-all hover:scale-110">
                 <Github className="w-6 h-6" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-red-500 transition-all hover:scale-110">
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-red-500 transition-all hover:scale-110">
+              <a href="mailto:twabgaming31@gmail.com" className="text-muted-foreground hover:text-red-500 transition-all hover:scale-110">
                 <Mail className="w-6 h-6" />
               </a>
             </div>
@@ -129,24 +128,11 @@ const Portfolio = () => {
             </h2>
           </AnimatedSection>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <AnimatedSection key={index} delay={index * 100}>
-                <Card className="p-6 bg-card/50 backdrop-blur border-red-500/20 hover:border-red-500/50 
-                               transition-all duration-300 hover:shadow-xl hover:shadow-red-500/20 
-                               group cursor-pointer hover:scale-105">
-                  <div className="aspect-video bg-gradient-to-br from-red-600/20 to-red-800/20 rounded-lg mb-4 
-                                flex items-center justify-center group-hover:from-red-600/30 group-hover:to-red-800/30 
-                                transition-all">
-                    <Code className="w-12 h-12 text-red-500 opacity-50" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground mb-3">{project.description}</p>
-                  <p className="text-sm text-red-500">{project.tech}</p>
-                </Card>
-              </AnimatedSection>
-            ))}
-          </div>
+          <AnimatedSection delay={100}>
+            <p className="text-2xl text-center text-muted-foreground">
+              Sorry! There are no projects. Yet
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
