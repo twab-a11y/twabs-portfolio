@@ -7,11 +7,14 @@ interface Star {
   targetX: number;
   targetY: number;
   size: number;
+  pulseDelay: number;
+  scrollOffset: number;
 }
 
 const InteractiveStars = () => {
   const [stars, setStars] = useState<Star[]>([]);
   const [clickTarget, setClickTarget] = useState<{ x: number; y: number } | null>(null);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     // Generate initial random stars
@@ -22,8 +25,18 @@ const InteractiveStars = () => {
       targetX: Math.random() * window.innerWidth,
       targetY: Math.random() * window.innerHeight,
       size: Math.random() * 2 + 1,
+      pulseDelay: Math.random() * 3,
+      scrollOffset: Math.random() * 100 - 50,
     }));
     setStars(initialStars);
+
+    // Handle scroll
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -84,15 +97,17 @@ const InteractiveStars = () => {
       {stars.map(star => (
         <div
           key={star.id}
-          className="absolute bg-white rounded-full pointer-events-none"
+          className="absolute bg-white rounded-full pointer-events-none animate-pulse"
           style={{
             left: `${star.x}px`,
-            top: `${star.y}px`,
+            top: `${star.y + scrollY * 0.3 + star.scrollOffset}px`,
             width: `${star.size}px`,
             height: `${star.size}px`,
             transition: 'all 0.1s ease-out',
             opacity: 0.8,
             boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)',
+            animationDelay: `${star.pulseDelay}s`,
+            animationDuration: `${2 + Math.random() * 2}s`,
           }}
         />
       ))}
