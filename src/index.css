@@ -72,14 +72,23 @@
   background: linear-gradient(
     90deg,
     #ef4444 0%,
-    #fee2e2 25%,
-    #fef2f2 50%,
-    #fee2e2 75%,
+    #f87171 30%,
+    #fca5a5 50%,
+    #f87171 70%,
     #ef4444 100%
   );
-  background-size: 200% auto;
+  background-size: 300% auto;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shiny 3s linear infinite;
+  animation: shiny 6s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }

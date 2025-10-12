@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
 import catAvatar from "@/assets/cat-avatar.jpeg";
 import backgroundVideo from "@/assets/background-video.mp4";
+import InteractiveStars from "./InteractiveStars";
 
 const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,19 +48,22 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Video Background - Full Site */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover z-0"
+      >
+        <source src={backgroundVideo} type="video/mp4" />
+      </video>
+      <div className="fixed inset-0 bg-black/60 z-0" />
+      <InteractiveStars />
+      
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/40" />
+      <section className="min-h-screen flex items-center justify-center px-6 relative z-10">
         
         <AnimatedSection>
           <div className="text-center z-10 relative">
@@ -101,7 +105,7 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection>
             <h2 className="text-5xl font-bold text-center mb-16 text-red-500">
@@ -125,7 +129,7 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection>
             <h2 className="text-5xl font-bold text-center mb-16 text-red-500">
@@ -142,7 +146,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-red-500/20">
+      <footer className="py-12 px-6 border-t border-red-500/20 relative z-10">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-muted-foreground">
             © 2025 Portfolio. Built with React & smooth animations.
