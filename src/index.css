@@ -58,3 +58,28 @@
   background-size: 200% 200%;
   animation: gradient-shift 10s ease infinite;
 }
+
+@keyframes shiny {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shiny-text {
+  background: linear-gradient(
+    90deg,
+    #ef4444 0%,
+    #fee2e2 25%,
+    #fef2f2 50%,
+    #fee2e2 75%,
+    #ef4444 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shiny 3s linear infinite;
+}

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
 import catAvatar from "@/assets/cat-avatar.jpeg";
+import backgroundVideo from "@/assets/background-video.mp4";
 
 const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -46,13 +47,19 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-red-950/20 to-background">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-950/40 via-red-900/20 to-background animate-gradient-shift" />
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.1),transparent_50%)] animate-pulse" />
-        </div>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={backgroundVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/40" />
         
         <AnimatedSection>
           <div className="text-center z-10 relative">
@@ -60,14 +67,12 @@ const Portfolio = () => {
               <img 
                 src={catAvatar} 
                 alt="Cat avatar" 
-                className="w-32 h-32 rounded-full shadow-2xl shadow-red-500/50 object-cover"
+                className="w-32 h-32 rounded-full shadow-2xl shadow-red-500/50 object-cover border-4 border-red-500"
               />
             </div>
             
-            <h1 className="text-7xl md:text-9xl font-black mb-6 
-                         bg-gradient-to-r from-red-400 via-red-500 to-red-600 
-                         bg-clip-text text-transparent">
-              TWAB
+            <h1 className="text-7xl md:text-9xl font-black mb-6 shiny-text">
+              Twab
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
