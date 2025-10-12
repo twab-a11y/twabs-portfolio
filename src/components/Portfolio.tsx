@@ -2,7 +2,6 @@ import { Github, Mail, Code, Palette, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
-import Silk from "./SilkBackground";
 import catAvatar from "@/assets/cat-avatar.jpeg";
 
 const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
@@ -50,8 +49,9 @@ const Portfolio = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-red-950/20 to-background">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Silk speed={5} scale={1} color="#ef4444" noiseIntensity={1.5} rotation={0} />
+        <div className="absolute inset-0 bg-gradient-to-br from-red-950/40 via-red-900/20 to-background animate-gradient-shift" />
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.1),transparent_50%)] animate-pulse" />
         </div>
         
         <AnimatedSection>
