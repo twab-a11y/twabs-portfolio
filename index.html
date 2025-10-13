@@ -1,16 +1,450 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twab - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Portfolio</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            transition: all 0.6s ease-out;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .avatar {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            border: 4px solid #ef4444;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(239, 68, 68, 0.3);
+            object-fit: cover;
+            margin: 0 auto 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .shiny-text {
+            font-size: 6rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #fff 0%, #fff 40%, #ff6b6b 50%, #fff 60%, #fff 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shiny 6s linear infinite;
+        }
+
+        @keyframes shiny {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #999;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #dc2626;
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #b91c1c;
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+
+        .btn-outline:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: scale(1.05);
+        }
+
+        .social {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .social a {
+            color: #999;
+            transition: all 0.3s;
+        }
+
+        .social a:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            color: #ef4444;
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            color: #ef4444;
+            margin-right: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ef4444;
+            border-radius: 1rem;
+            transition: width 1s ease-out;
+        }
+
+        .progress-text {
+            text-align: right;
+            color: #999;
+            font-size: 0.875rem;
+        }
+
+        .small-card {
+            padding: 1.5rem;
+        }
+
+        .small-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .small-progress {
+            height: 12px;
+        }
+
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .shiny-text {
+                font-size: 3.5rem;
+            }
+            .subtitle {
+                font-size: 1.25rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video class="video-bg" autoplay loop muted playsinline>
+        <source src="src/assets/background-video.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <!-- Stars Container -->
+    <div id="stars"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <img src="src/assets/cat-avatar.jpeg" alt="Avatar" class="avatar" id="avatar">
+                <h1 class="shiny-text">Twab</h1>
+                <p class="subtitle">New Developer, Gamer And Designer</p>
+                <div class="buttons">
+                    <a href="#" class="btn btn-primary">View Work</a>
+                    <a href="#" class="btn btn-outline">Contact Me</a>
+                </div>
+                <div class="social">
+                    <a href="https://github.com/twab-a11y" target="_blank">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="mailto:twabgaming31@gmail.com">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section">
+            <h2 class="section-title">Skills</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m16 18 2-2-2-2M8 6 6 8l2 2m8-8-4 16"/></svg>
+                        <h3 class="card-title">Development</h3>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-percent="5"></div>
+                    </div>
+                    <p class="progress-text">5%</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3M5 6v4m14 0v4M10 2v2m0 16v2"/></svg>
+                        <h3 class="card-title">Design</h3>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-percent="21"></div>
+                    </div>
+                    <p class="progress-text">21%</p>
+                </div>
+            </div>
+            <div class="grid grid-3" style="margin-top: 2rem;">
+                <div class="card small-card">
+                    <h3 class="small-title">Python</h3>
+                    <div class="progress-bar small-progress">
+                        <div class="progress-fill" data-percent="3"></div>
+                    </div>
+                    <p class="progress-text">3%</p>
+                </div>
+                <div class="card small-card">
+                    <h3 class="small-title">JavaScript</h3>
+                    <div class="progress-bar small-progress">
+                        <div class="progress-fill" data-percent="0"></div>
+                    </div>
+                    <p class="progress-text">0%</p>
+                </div>
+                <div class="card small-card">
+                    <h3 class="small-title">Lua</h3>
+                    <div class="progress-bar small-progress">
+                        <div class="progress-fill" data-percent="1"></div>
+                    </div>
+                    <p class="progress-text">1%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section">
+            <h2 class="section-title">Projects</h2>
+            <p style="text-align: center; font-size: 1.5rem; color: #999;">Sorry! There are no projects. Yet</p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 Portfolio. Built with smooth animations.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        const stars = [];
+        const starCount = 50;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.dataset.baseX = parseFloat(star.style.left);
+            star.dataset.baseY = parseFloat(star.style.top);
+            starsContainer.appendChild(star);
+            stars.push(star);
+            
+            // Random pulse animation
+            setInterval(() => {
+                const scale = 1 + Math.random() * 2;
+                star.style.transform = `scale(${scale})`;
+            }, Math.random() * 3000 + 2000);
+        }
+
+        // Move stars on click
+        document.addEventListener('click', (e) => {
+            const clickX = (e.clientX / window.innerWidth) * 100;
+            const clickY = (e.clientY / window.innerHeight) * 100;
+            
+            stars.forEach(star => {
+                star.style.left = clickX + '%';
+                star.style.top = clickY + '%';
+                
+                setTimeout(() => {
+                    star.style.left = star.dataset.baseX + '%';
+                    star.style.top = star.dataset.baseY + '%';
+                }, 1000);
+            });
+        });
+
+        // Move stars on scroll
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const scrollDiff = window.scrollY - lastScrollY;
+            stars.forEach(star => {
+                const currentTop = parseFloat(star.style.top);
+                star.style.top = (currentTop + scrollDiff * 0.02) + '%';
+            });
+            lastScrollY = window.scrollY;
+        });
+
+        // Animate progress bars
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                const percent = bar.dataset.percent;
+                setTimeout(() => {
+                    bar.style.width = percent + '%';
+                }, 300);
+            });
+        });
+
+        // Secret avatar click counter
+        let secretClicks = 0;
+        document.getElementById('avatar').addEventListener('click', () => {
+            secretClicks++;
+            if (secretClicks === 5) {
+                const stars = ['⭐', '✨', '🌟', '💫', '⚡'];
+                const randomStar = stars[Math.floor(Math.random() * stars.length)];
+                alert(`${randomStar} Secret discovered! You found the hidden click counter! ${randomStar}`);
+                secretClicks = 0;
+            }
+        });
+    </script>
+</body>
 </html>
