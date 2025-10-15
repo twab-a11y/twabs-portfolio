@@ -76,6 +76,7 @@
             margin: 0 auto 2rem;
             cursor: pointer;
             transition: transform 0.3s;
+            animation: float 3s ease-in-out infinite;
         }
 
         .avatar:hover {
@@ -91,12 +92,43 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shiny 6s linear infinite;
+            animation: shiny 6s linear infinite, scaleIn 0.8s ease-out;
         }
 
         @keyframes shiny {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .subtitle {
@@ -173,6 +205,7 @@
             text-align: center;
             color: #ef4444;
             margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out;
         }
 
         .grid {
@@ -191,12 +224,13 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(239, 68, 68, 0.2);
             border-radius: 1rem;
             padding: 2rem;
             transition: all 0.3s;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .card:hover {
@@ -275,6 +309,7 @@
             max-width: 800px;
             font-size: 1.25rem;
             color: #fff;
+            animation: fadeInUp 0.7s ease-out;
         }
 
         @media (max-width: 768px) {
