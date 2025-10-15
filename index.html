@@ -43,13 +43,12 @@
 
         .star {
             position: fixed;
-            width: 2px;
-            height: 2px;
+            width: 1px;
+            height: 1px;
             background: white;
             border-radius: 50%;
             pointer-events: none;
             z-index: 2;
-            transition: all 0.6s ease-out;
         }
 
         .container {
@@ -84,10 +83,10 @@
         }
 
         .shiny-text {
-            font-size: 6rem;
+            font-size: 8rem;
             font-weight: 900;
             margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, #fff 0%, #fff 40%, #ff6b6b 50%, #fff 60%, #fff 100%);
+            background: linear-gradient(90deg, #fff 0%, #ffcccc 25%, #ff4444 50%, #ffcccc 75%, #fff 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -266,9 +265,21 @@
             color: #999;
         }
 
+        .fun-banner {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem auto 4rem;
+            max-width: 800px;
+            font-size: 1.25rem;
+            color: #fff;
+        }
+
         @media (max-width: 768px) {
             .shiny-text {
-                font-size: 3.5rem;
+                font-size: 4.5rem;
             }
             .subtitle {
                 font-size: 1.25rem;
@@ -314,6 +325,9 @@
 
         <!-- Skills Section -->
         <section class="section">
+            <div class="fun-banner">
+                🎮 Fun Fact: I learned to code by trying to cheat in video games! 🚀
+            </div>
             <h2 class="section-title">Skills</h2>
             <div class="grid grid-2">
                 <div class="card">
@@ -325,6 +339,30 @@
                         <div class="progress-fill" data-percent="5"></div>
                     </div>
                     <p class="progress-text">5%</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Python</h4>
+                            <div class="progress-bar small-progress">
+                                <div class="progress-fill" data-percent="3"></div>
+                            </div>
+                            <p class="progress-text">3%</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">JavaScript</h4>
+                            <div class="progress-bar small-progress">
+                                <div class="progress-fill" data-percent="0"></div>
+                            </div>
+                            <p class="progress-text">0%</p>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Lua</h4>
+                            <div class="progress-bar small-progress">
+                                <div class="progress-fill" data-percent="1"></div>
+                            </div>
+                            <p class="progress-text">1%</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
@@ -335,29 +373,6 @@
                         <div class="progress-fill" data-percent="21"></div>
                     </div>
                     <p class="progress-text">21%</p>
-                </div>
-            </div>
-            <div class="grid grid-3" style="margin-top: 2rem;">
-                <div class="card small-card">
-                    <h3 class="small-title">Python</h3>
-                    <div class="progress-bar small-progress">
-                        <div class="progress-fill" data-percent="3"></div>
-                    </div>
-                    <p class="progress-text">3%</p>
-                </div>
-                <div class="card small-card">
-                    <h3 class="small-title">JavaScript</h3>
-                    <div class="progress-bar small-progress">
-                        <div class="progress-fill" data-percent="0"></div>
-                    </div>
-                    <p class="progress-text">0%</p>
-                </div>
-                <div class="card small-card">
-                    <h3 class="small-title">Lua</h3>
-                    <div class="progress-bar small-progress">
-                        <div class="progress-fill" data-percent="1"></div>
-                    </div>
-                    <p class="progress-text">1%</p>
                 </div>
             </div>
         </section>
@@ -389,40 +404,7 @@
             star.dataset.baseY = parseFloat(star.style.top);
             starsContainer.appendChild(star);
             stars.push(star);
-            
-            // Random pulse animation
-            setInterval(() => {
-                const scale = 1 + Math.random() * 2;
-                star.style.transform = `scale(${scale})`;
-            }, Math.random() * 3000 + 2000);
         }
-
-        // Move stars on click
-        document.addEventListener('click', (e) => {
-            const clickX = (e.clientX / window.innerWidth) * 100;
-            const clickY = (e.clientY / window.innerHeight) * 100;
-            
-            stars.forEach(star => {
-                star.style.left = clickX + '%';
-                star.style.top = clickY + '%';
-                
-                setTimeout(() => {
-                    star.style.left = star.dataset.baseX + '%';
-                    star.style.top = star.dataset.baseY + '%';
-                }, 1000);
-            });
-        });
-
-        // Move stars on scroll
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            const scrollDiff = window.scrollY - lastScrollY;
-            stars.forEach(star => {
-                const currentTop = parseFloat(star.style.top);
-                star.style.top = (currentTop + scrollDiff * 0.02) + '%';
-            });
-            lastScrollY = window.scrollY;
-        });
 
         // Animate progress bars
         window.addEventListener('load', () => {
