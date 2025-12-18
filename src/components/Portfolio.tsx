@@ -1,10 +1,12 @@
-import { Github, Mail, Code, Palette, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Github, Mail, Monitor, Brush } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
 import catAvatar from "@/assets/cat-avatar.jpeg";
 import backgroundVideo from "@/assets/background-video.mp4";
 import InteractiveStars from "./InteractiveStars";
+import SplitText from "./SplitText";
+import GradientText from "./GradientText";
+import StarBorder from "./StarBorder";
 
 const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,11 +42,22 @@ const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; d
 };
 
 const Portfolio = () => {
-  const [secretClicks, setSecretClicks] = useState(0);
+  const [bannerVisible, setBannerVisible] = useState(true);
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setBannerVisible(scrollY < 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const skills = [
-    { icon: Code, name: "Development", percent: 5 },
-    { icon: Palette, name: "Design", percent: 21 },
+    { icon: Monitor, name: "Development", percent: 5 },
+    { icon: Brush, name: "Design", percent: 21 },
   ];
 
   const programmingSkills = [
@@ -53,21 +66,20 @@ const Portfolio = () => {
     { name: "Lua", percent: 1 },
   ];
 
-  const handleAvatarClick = () => {
-    setSecretClicks(prev => {
-      const newCount = prev + 1;
-      if (newCount === 5) {
-        const stars = ['⭐', '✨', '🌟', '💫', '⚡'];
-        const randomStar = stars[Math.floor(Math.random() * stars.length)];
-        alert(`${randomStar} Secret discovered! You found the hidden click counter! ${randomStar}`);
-        return 0;
-      }
-      return newCount;
-    });
-  };
-
   return (
     <div className="min-h-screen bg-background relative">
+      {/* Fun Fact Banner */}
+      <div 
+        ref={bannerRef}
+        className={`fixed top-0 left-0 right-0 z-50 bg-red-600/90 backdrop-blur-sm py-2 px-4 text-center transition-all duration-500 ${
+          bannerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        }`}
+      >
+        <p className="text-foreground text-sm">
+          <span className="text-lg font-bold align-middle">T</span>wab is a combination of two things: games and design
+        </p>
+      </div>
+
       {/* Video Background - Full Site */}
       <video
         autoPlay
@@ -78,11 +90,11 @@ const Portfolio = () => {
       >
         <source src={backgroundVideo} type="video/mp4" />
       </video>
-      <div className="fixed inset-0 bg-black/60 z-0" />
+      <div className="fixed inset-0 bg-black/40 z-0" />
       <InteractiveStars />
       
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 relative z-10">
+      <section className="min-h-screen flex items-center justify-center px-6 relative z-10 pt-12">
         
         <AnimatedSection>
           <div className="text-center z-10 relative">
@@ -90,16 +102,29 @@ const Portfolio = () => {
               <img 
                 src={catAvatar} 
                 alt="Cat avatar" 
-                className="w-32 h-32 rounded-full shadow-2xl shadow-red-500/50 object-cover border-4 border-red-500 cursor-pointer transition-all hover:scale-105"
+                className="w-32 h-32 rounded-full shadow-2xl shadow-red-500/50 object-cover border-4 border-red-500 transition-all hover:scale-105"
                 style={{
                   boxShadow: '0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(239, 68, 68, 0.3)'
                 }}
-                onClick={handleAvatarClick}
               />
             </div>
             
-            <h1 className="text-7xl md:text-9xl font-black mb-6 shiny-text">
-              Twab
+            <div className="mb-2 text-xl md:text-2xl text-muted-foreground">
+              <SplitText 
+                text="hey, i am twab" 
+                delay={70}
+                duration={0.6}
+                ease="power3.out"
+              />
+            </div>
+            
+            <h1 className="text-7xl md:text-9xl font-black mb-6">
+              <GradientText 
+                colors={["#ef4444", "#ffffff", "#ef4444", "#ffffff", "#ef4444"]}
+                animationSpeed={4}
+              >
+                Twab
+              </GradientText>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -107,12 +132,12 @@ const Portfolio = () => {
             </p>
             
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button size="lg" className="bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/30 transition-all hover:scale-105">
-                View Work
-              </Button>
-              <Button size="lg" variant="outline" className="border-red-500/50 hover:bg-red-500/10 transition-all hover:scale-105">
-                Contact Me
-              </Button>
+              <StarBorder color="#ef4444" speed="4s" thickness={2}>
+                <span className="text-foreground font-semibold">View Work</span>
+              </StarBorder>
+              <StarBorder color="#ffffff" speed="4s" thickness={2}>
+                <span className="text-foreground font-semibold">Get In Touch</span>
+              </StarBorder>
             </div>
 
             <div className="flex gap-6 justify-center mt-8">
@@ -142,7 +167,7 @@ const Portfolio = () => {
                 <Card className="p-8 bg-card/50 backdrop-blur border-red-500/20 hover:border-red-500/50 
                                transition-all duration-300 hover:shadow-xl hover:shadow-red-500/20">
                   <div className="flex items-center mb-4">
-                    <skill.icon className="w-12 h-12 text-red-500 mr-4" />
+                    <skill.icon className="w-12 h-12 text-red-500 mr-4" strokeWidth={1.5} />
                     <h3 className="text-2xl font-bold">{skill.name}</h3>
                   </div>
                   <div className="w-full bg-muted rounded-full h-4 overflow-hidden">
@@ -188,7 +213,7 @@ const Portfolio = () => {
           
           <AnimatedSection delay={100}>
             <p className="text-2xl text-center text-muted-foreground">
-              Sorry! There are no projects. Yet
+              There is nothing here! (Yet)
             </p>
           </AnimatedSection>
         </div>
