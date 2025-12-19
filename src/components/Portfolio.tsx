@@ -90,7 +90,7 @@ const Portfolio = () => {
       >
         <source src={backgroundVideo} type="video/mp4" />
       </video>
-      <div className="fixed inset-0 bg-black/40 z-0" />
+      <div className="fixed inset-0 bg-black/30 z-0" />
       <InteractiveStars />
       
       {/* Hero Section */}
@@ -112,7 +112,8 @@ const Portfolio = () => {
             <div className="mb-2 text-xl md:text-2xl text-muted-foreground">
               <SplitText 
                 text="hey, i am twab" 
-                delay={70}
+                splitType="words"
+                delay={150}
                 duration={0.6}
                 ease="power3.out"
               />
