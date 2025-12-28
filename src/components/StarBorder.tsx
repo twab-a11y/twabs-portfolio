@@ -1,65 +1,53 @@
-import { ReactNode, CSSProperties } from "react";
+import { ReactNode, useId } from "react";
 
 interface StarBorderProps {
-  as?: keyof JSX.IntrinsicElements;
-  className?: string;
+  children: ReactNode;
   color?: string;
   speed?: string;
-  children?: ReactNode;
-  thickness?: number;
+  className?: string;
+  borderWidth?: number;
 }
 
 const StarBorder = ({
-  as: Component = "button",
-  className = "",
-  color = "white",
-  speed = "6s",
   children,
-  thickness = 3,
+  color = "#fff",
+  speed = "5s",
+  className = "",
+  borderWidth = 2,
 }: StarBorderProps) => {
-  const wrapperStyle: CSSProperties = {
-    position: "relative",
-    display: "inline-block",
-    padding: `${thickness}px`,
-    borderRadius: "9999px",
-    overflow: "hidden",
-    background: "transparent",
-  };
-
-  const borderStyle: CSSProperties = {
-    position: "absolute",
-    inset: 0,
-    borderRadius: "9999px",
-    background: `conic-gradient(from 0deg, transparent 0deg, ${color} 60deg, transparent 120deg)`,
-    animation: `star-rotate ${speed} linear infinite`,
-  };
-
-  const innerStyle: CSSProperties = {
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0.75rem 1.5rem",
-    borderRadius: "9999px",
-    background: "rgba(0, 0, 0, 0.8)",
-    backdropFilter: "blur(10px)",
-    zIndex: 1,
-  };
+  const id = useId();
 
   return (
     <>
       <style>
         {`
-          @keyframes star-rotate {
+          @keyframes spin-${id.replace(/:/g, "")} {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
           }
         `}
       </style>
-      <Component className={className} style={wrapperStyle}>
-        <div style={borderStyle} />
-        <div style={innerStyle}>{children}</div>
-      </Component>
+      <div
+        className={`relative inline-flex items-center justify-center rounded-full ${className}`}
+        style={{ padding: borderWidth }}
+      >
+        <div
+          className="absolute inset-0 rounded-full overflow-hidden"
+          style={{ padding: borderWidth }}
+        >
+          <div
+            className="absolute w-[200%] h-[200%] top-1/2 left-1/2"
+            style={{
+              background: `conic-gradient(from 0deg, transparent, ${color}, transparent 30%)`,
+              animation: `spin-${id.replace(/:/g, "")} ${speed} linear infinite`,
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+        </div>
+        <div className="relative z-10 px-6 py-3 rounded-full bg-black/80 backdrop-blur-md">
+          {children}
+        </div>
+      </div>
     </>
   );
 };
