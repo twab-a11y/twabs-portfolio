@@ -1,57 +1,39 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useId } from "react";
 
 interface GradientTextProps {
   children: ReactNode;
-  className?: string;
   colors?: string[];
-  animationSpeed?: number;
-  showBorder?: boolean;
+  speed?: number;
+  className?: string;
 }
 
 const GradientText = ({
   children,
+  colors = ["#ff6b6b", "#feca57", "#48dbfb", "#ff9ff3"],
+  speed = 3,
   className = "",
-  colors = ["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"],
-  animationSpeed = 8,
-  showBorder = false,
 }: GradientTextProps) => {
-  const gradientStyle = useMemo(() => {
-    const gradient = `linear-gradient(90deg, ${colors.join(", ")})`;
-    return {
-      backgroundImage: gradient,
-      backgroundSize: "300% 100%",
-      backgroundClip: "text",
-      WebkitBackgroundClip: "text",
-      color: "transparent",
-      animation: `gradient-animation ${animationSpeed}s linear infinite`,
-    };
-  }, [colors, animationSpeed]);
-
-  const borderStyle = useMemo(() => {
-    if (!showBorder) return {};
-    const gradient = `linear-gradient(90deg, ${colors.join(", ")})`;
-    return {
-      border: "2px solid transparent",
-      backgroundImage: `linear-gradient(#000, #000), ${gradient}`,
-      backgroundOrigin: "border-box",
-      backgroundClip: "padding-box, border-box",
-    };
-  }, [colors, showBorder]);
+  const id = useId();
+  const colorStops = colors.join(", ");
 
   return (
     <>
       <style>
         {`
-          @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
+          @keyframes flow-${id.replace(/:/g, "")} {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
           }
         `}
       </style>
       <span
-        className={`inline-block ${className}`}
-        style={{ ...gradientStyle, ...borderStyle }}
+        className={`inline-block bg-clip-text text-transparent ${className}`}
+        style={{
+          backgroundImage: `linear-gradient(270deg, ${colorStops})`,
+          backgroundSize: "200% 200%",
+          animation: `flow-${id.replace(/:/g, "")} ${speed}s ease infinite`,
+          WebkitBackgroundClip: "text",
+        }}
       >
         {children}
       </span>
