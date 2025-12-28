@@ -1,10 +1,12 @@
-import { Github, Mail, Code, Palette } from "lucide-react";
+import { Github, Mail, Monitor, Brush } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import catAvatar from "@/assets/cat-avatar.jpeg";
 import backgroundVideo from "@/assets/background-video.mp4";
 import InteractiveStars from "./InteractiveStars";
+import SplitText from "./SplitText";
+import GradientText from "./GradientText";
+import StarBorder from "./StarBorder";
 
 const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,11 +42,21 @@ const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; d
 };
 
 const Portfolio = () => {
-  const [bannerVisible] = useState(true);
+  const [bannerVisible, setBannerVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setBannerVisible(scrollY < 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const skills = [
-    { icon: Code, name: "Development", percent: 5 },
-    { icon: Palette, name: "Design", percent: 21 },
+    { icon: Monitor, name: "Development", percent: 5 },
+    { icon: Brush, name: "Design", percent: 21 },
   ];
 
   const programmingSkills = [
@@ -56,13 +68,15 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen bg-background relative">
       {/* Fun Fact Banner */}
-      {bannerVisible && (
-        <div className="fixed top-0 left-0 right-0 z-50 bg-red-600/90 backdrop-blur-sm py-2 px-4 text-center">
-          <p className="text-foreground text-sm">
-            Twab is a combination of two things: video games and design
-          </p>
-        </div>
-      )}
+      <div 
+        className={`fixed top-0 left-0 right-0 z-50 bg-red-600/90 backdrop-blur-sm py-2 px-4 text-center transition-all duration-500 ${
+          bannerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        }`}
+      >
+        <p className="text-foreground text-sm">
+          <span className="text-lg font-bold align-middle">T</span>wab is a combination of two things: games and design
+        </p>
+      </div>
 
       {/* Video Background - Full Site */}
       <video
@@ -74,7 +88,7 @@ const Portfolio = () => {
       >
         <source src={backgroundVideo} type="video/mp4" />
       </video>
-      <div className="fixed inset-0 bg-black/50 z-0" />
+      <div className="fixed inset-0 bg-black/30 z-0" />
       <InteractiveStars />
       
       {/* Hero Section */}
@@ -93,12 +107,23 @@ const Portfolio = () => {
               />
             </div>
             
-            <p className="mb-2 text-xl md:text-2xl text-muted-foreground">
-              hey, i am twab
-            </p>
+            <div className="mb-2 text-xl md:text-2xl text-muted-foreground">
+              <SplitText 
+                text="hey, i am twab" 
+                splitType="words"
+                delay={150}
+                duration={0.6}
+                ease="power3.out"
+              />
+            </div>
             
-            <h1 className="text-7xl md:text-9xl font-black mb-6 text-foreground">
-              Twab
+            <h1 className="text-7xl md:text-9xl font-black mb-6">
+              <GradientText 
+                colors={["#ef4444", "#ffffff", "#ef4444", "#ffffff", "#ef4444"]}
+                animationSpeed={4}
+              >
+                Twab
+              </GradientText>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -106,12 +131,12 @@ const Portfolio = () => {
             </p>
             
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button variant="default" className="bg-red-600 hover:bg-red-700 text-white">
-                View Work
-              </Button>
-              <Button variant="outline" className="border-red-500 text-foreground hover:bg-red-500/20">
-                Get In Touch
-              </Button>
+              <StarBorder color="#ef4444" speed="4s" thickness={2}>
+                <span className="text-foreground font-semibold">View Work</span>
+              </StarBorder>
+              <StarBorder color="#ffffff" speed="4s" thickness={2}>
+                <span className="text-foreground font-semibold">Get In Touch</span>
+              </StarBorder>
             </div>
 
             <div className="flex gap-6 justify-center mt-8">
@@ -187,7 +212,7 @@ const Portfolio = () => {
           
           <AnimatedSection delay={100}>
             <p className="text-2xl text-center text-muted-foreground">
-              Coming soon...
+              There is nothing here! (Yet)
             </p>
           </AnimatedSection>
         </div>
